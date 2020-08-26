@@ -19,7 +19,7 @@ export class TalkModel extends BaseEntity implements Domain {
     unsigned: true,
     name: 'talk_id'
   })
-  readonly id!: number;
+  readonly id?: number;
 
   @Column({
     type: 'varchar',
@@ -46,8 +46,7 @@ export class TalkModel extends BaseEntity implements Domain {
   public message!: string;
 
   @Column({
-    type: 'float',
-    unsigned: true,
+    type: 'timestamp',
     nullable: false,
     comment: '投稿時間'
   })

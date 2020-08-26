@@ -21,28 +21,46 @@ export class Talk {
   public toObject(): typeof Talk['ofObject'] extends (obj: infer T) => any
     ? T | Omit<T, 'id'>
     : never {
-    return {
-      message: this.message.get(),
-      name: this.name.get(),
-      time: this.time.get(),
-      id: this.hasId() ? (this.id as Id).get() : undefined,
-      channel: this.channel.get()
-    };
+    if (this.id) {
+      return {
+        message: this.message.get(),
+        name: this.name.get(),
+        time: this.time.get(),
+        id: this.id.get(),
+        channel: this.channel.get()
+      };
+    } else {
+      return {
+        message: this.message.get(),
+        name: this.name.get(),
+        time: this.time.get(),
+        channel: this.channel.get()
+      };
+    }
   }
   public static ofObject(obj: {
     message: string;
     name: string;
     time: Date;
-    id: number;
+    id?: number;
     channel: string;
   }) {
-    return new this(
-      Message.of(obj.message),
-      Name.of(obj.name),
-      Time.of(obj.time),
-      Channel.of(obj.channel),
-      Id.of(obj.id)
-    );
+    if (obj.id) {
+      return new this(
+        Message.of(obj.message),
+        Name.of(obj.name),
+        Time.of(obj.time),
+        Channel.of(obj.channel),
+        Id.of(obj.id)
+      );
+    } else {
+      return new this(
+        Message.of(obj.message),
+        Name.of(obj.name),
+        Time.of(obj.time),
+        Channel.of(obj.channel)
+      );
+    }
   }
   public getChannel() {
     return this.channel;

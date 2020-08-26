@@ -15,5 +15,5 @@ class UseCase {
 }
 
 export default new UseCase(
-  process.env.NODE_ENV === 'production' ? new TalkRepository() : TalkMock
+  process.env.NODE_ENV === 'development' ? TalkMock : new TalkRepository()
 );
