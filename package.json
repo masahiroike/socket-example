@@ -1,0 +1,63 @@
+{
+  "name": "socket-example",
+  "version": "1.0.0",
+  "description": "socket server のテンプレート",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 start socket.config.js --env dev",
+    "start:prod": "pm2 start proxy.config.js --env prod && pm2 start socket.config.js --env prod",
+    "start:test": "pm2 start socket.config.js --env test",
+    "restart": "pm2 restart all",
+    "stop": "pm2 stop all",
+    "monit": "pm2 monit",
+    "status": "pm2 status",
+    "logs": "pm2 log",
+    "migration": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run",
+    "migration:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert",
+    "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate --name"
+  },
+  "keywords": [
+    "socket",
+    "ddd",
+    "domain",
+    "model"
+  ],
+  "author": "masahiro <npm@masahiroike.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/http-proxy": "1.17.3",
+    "@types/node": "13.9.1",
+    "@types/ws": "6.0.3",
+    "@typescript-eslint/eslint-plugin": "2.23.0",
+    "@typescript-eslint/parser": "2.23.0",
+    "eslint": "6.8.0",
+    "eslint-plugin-prettier": "3.1.2",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.2",
+    "pm2": "4.1.2",
+    "prettier": "1.19.1",
+    "ts-node": "8.6.2",
+    "typescript": "3.6.4"
+  },
+  "dependencies": {
+    "eslint-config-prettier": "6.10.0",
+    "http-proxy": "1.18.0",
+    "mysql": "^2.18.1",
+    "ts-polyfill": "3.8.2",
+    "tsconfig-paths": "^3.9.0",
+    "typeorm": "^0.2.25",
+    "ws": "6.1.2",
+    "reflect-metadata": "^0.1.10"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix src/**/*.ts"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
